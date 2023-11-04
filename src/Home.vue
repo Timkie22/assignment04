@@ -1,36 +1,37 @@
 <template>
-  <div id="electronics">
-    <div class="category-header electronicHeader"><h1>Electronics</h1></div>
+  <!-- ... other category sections ... -->
+  <div id="artsupplies">
+    <div class="category-header artSuppliesHeader"><h1>Art Supplies</h1></div>
     <div class="items">
-      <ElectronicsItem v-for="item in electronicsItems" :item="item" />
+      <ArtSupplyItem v-for="item in artSuppliesItems" :key="item.name" :item="item" />
     </div>
   </div>
-  <div id="clothing">
-    <div class="category-header clothingHeader"><h1>Clothing</h1></div>
+  <div id="books">
+    <div class="category-header bookHeader"><h1>Books</h1></div>
     <div class="items">
-      <ClothingItem v-for="item in clothingItems" :item="item" />
+      <BookItem v-for="item in bookItems" :key="item.name" :item="item" />
     </div>
   </div>
-  <div id="groceries">
-    <div class="category-header groceriesHeader"><h1>Groceries</h1></div>
+  <div id="kitchenware">
+    <div class="category-header kitchenwareHeader"><h1>Kitchenware</h1></div>
     <div class="items">
-      <GroceriesItem v-for="item in groceriesItems" :item="item" />
+      <KitchenwareItem v-for="item in kitchenwareItems" :key="item.name" :item="item" />
     </div>
   </div>
-  <div id="sports">
-    <div class="category-header sportsHeader"><h1>Sports</h1></div>
+  <div id="music">
+    <div class="category-header musicHeader"><h1>Music</h1></div>
     <div class="items">
-      <SportsItem v-for="item in sportsItems" :item="item" />
+      <MusicItem v-for="item in musicItems" :key="item.name" :item="item" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import ElectronicsItem from "./components/ElectronicsItem.vue";
-import ClothingItem from "./components/ClothingItem.vue";
-import GroceriesItem from "./components/GroceriesItem.vue";
-import SportsItem from "./components/SportsItem.vue";
+import ArtSupplyItem from "./ArtSupplyItem.vue";
+import BookItem from "./BookItem.vue";
+import KitchenwareItem from "./KitchenwareItem.vue";
+import MusicItem from "./MusicItem.vue";
 import "font-awesome/css/font-awesome.min.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./main.ts";
@@ -44,33 +45,33 @@ interface StoreItem {
   image: string;
   category: string;
 }
-const electronicsItems = ref<StoreItem[]>([]);
-const clothingItems = ref<StoreItem[]>([]);
-const groceriesItems = ref<StoreItem[]>([]);
-const sportsItems = ref<StoreItem[]>([]);
+const artSuppliesItems = ref<StoreItem[]>([]);
+const bookItems = ref<StoreItem[]>([]);
+const kitchenwareItems = ref<StoreItem[]>([]);
+const musicItems = ref<StoreItem[]>([]);
 
 onBeforeMount(async () => {
   const electronicsCollection = collection(db, "electronics");
   const electronicsSnapshot = await getDocs(electronicsCollection);
-  electronicsItems.value = electronicsSnapshot.docs.map(
+  artSuppliesItems.value = electronicsSnapshot.docs.map(
     (doc) => doc.data() as StoreItem
   );
 
   const clothingCollection = collection(db, "clothing");
   const clothingSnapshot = await getDocs(clothingCollection);
-  clothingItems.value = clothingSnapshot.docs.map(
+  bookItems.value = clothingSnapshot.docs.map(
     (doc) => doc.data() as StoreItem
   );
 
   const groceriesCollection = collection(db, "groceries");
   const groceriesSnapshot = await getDocs(groceriesCollection);
-  groceriesItems.value = groceriesSnapshot.docs.map(
+  kitchenwareItems.value = groceriesSnapshot.docs.map(
     (doc) => doc.data() as StoreItem
   );
 
   const sportsCollection = collection(db, "sports");
   const sportsSnapshot = await getDocs(sportsCollection);
-  sportsItems.value = sportsSnapshot.docs.map((doc) => doc.data() as StoreItem);
+  musicItems.value = sportsSnapshot.docs.map((doc) => doc.data() as StoreItem);
 });
 </script>
 
@@ -82,17 +83,18 @@ onBeforeMount(async () => {
     1px 1px 0 black;
   color: white;
 }
-.electronicHeader {
-  background-image: url(https://datadimensions.com/wp-content/uploads/2021/09/aboutus-banner.jpg);
+/* ... other styles ... */
+.artSuppliesHeader {
+  /* Add background-image and other styles specific for the art supplies header */
 }
-.clothingHeader {
-  background-image: url(https://as1.ftcdn.net/v2/jpg/02/42/89/60/500_F_242896079_shm0z5sz1owigpNJKmzNFkuKbt0JKIc2.jpg);
+.bookHeader {
+  /* Add background-image and other styles specific for the book header */
 }
-.groceriesHeader {
-  background-image: url(https://sunrisemarketplace.com/wp-content/uploads/2017/09/SMP-grocery-stores-banner.jpg);
+.kitchenwareHeader {
+  /* Add background-image and other styles specific for the kitchenware header */
 }
-.sportsHeader {
-  background-image: url(https://www.woodhouseparklifestylecentre.co.uk/wp-content/uploads/2014/04/Football-pitch-banner.jpg);
+.musicHeader {
+  /* Add background-image and other styles specific for the music header */
 }
 
 .items {

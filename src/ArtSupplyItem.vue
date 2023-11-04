@@ -1,15 +1,15 @@
 <template>
-  <div id="sports">
-    <div class="category-header sportsHeader"><h1>Sports</h1></div>
+  <div id="art-supplies">
+    <div class="category-header artSuppliesHeader"><h1>Art Supplies</h1></div>
     <div class="items">
-      <SportsItem v-for="item in sportsItems" :item="item" />
+      <ArtSupplyItem v-for="item in artSuppliesItems" :key="item.name" :item="item" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import SportsItem from "./components/SportsItem.vue";
+import ArtSupplyItem from "./ArtSupplyItem.vue"; // Stellen Sie sicher, dass Sie eine ArtSupplyItem-Komponente haben
 import "font-awesome/css/font-awesome.min.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./main.ts";
@@ -23,12 +23,14 @@ interface StoreItem {
   image: string;
   category: string;
 }
-const sportsItems = ref<StoreItem[]>([]);
+const artSuppliesItems = ref<StoreItem[]>([]);
 
 onBeforeMount(async () => {
-  const sportsCollection = collection(db, "sports");
-  const sportsSnapshot = await getDocs(sportsCollection);
-  sportsItems.value = sportsSnapshot.docs.map((doc) => doc.data() as StoreItem);
+  const artSuppliesCollection = collection(db, "art-supplies"); // Aktualisiert auf die Art-Supplies-Kollektion
+  const artSuppliesSnapshot = await getDocs(artSuppliesCollection);
+  artSuppliesItems.value = artSuppliesSnapshot.docs.map(
+    (doc) => doc.data() as StoreItem
+  );
 });
 </script>
 
@@ -40,8 +42,8 @@ onBeforeMount(async () => {
     1px 1px 0 black;
   color: white;
 }
-.sportsHeader {
-  background-image: url(https://www.woodhouseparklifestylecentre.co.uk/wp-content/uploads/2014/04/Football-pitch-banner.jpg);
+.artSuppliesHeader {
+  background-image: url('https://example.com/path-to-art-supplies-header-image.jpg'); 
 }
 
 .items {

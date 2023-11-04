@@ -1,15 +1,15 @@
 <template>
-  <div id="clothing">
-    <div class="category-header clothingHeader"><h1>Clothing</h1></div>
+  <div id="books">
+    <div class="category-header booksHeader"><h1>Books</h1></div>
     <div class="items">
-      <ClothingItem v-for="item in clothingItems" :item="item" />
+      <BookItem v-for="item in bookItems" :key="item.name" :item="item" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import ClothingItem from "./components/ClothingItem.vue";
+import BookItem from "./BookItem.vue"; // Make sure you have a BookItem component
 import "font-awesome/css/font-awesome.min.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./main.ts";
@@ -23,12 +23,12 @@ interface StoreItem {
   image: string;
   category: string;
 }
-const clothingItems = ref<StoreItem[]>([]);
+const bookItems = ref<StoreItem[]>([]);
 
 onBeforeMount(async () => {
-  const clothingCollection = collection(db, "clothing");
-  const clothingSnapshot = await getDocs(clothingCollection);
-  clothingItems.value = clothingSnapshot.docs.map(
+  const booksCollection = collection(db, "books"); // Change to the books collection
+  const booksSnapshot = await getDocs(booksCollection);
+  bookItems.value = booksSnapshot.docs.map(
     (doc) => doc.data() as StoreItem
   );
 });
@@ -42,8 +42,8 @@ onBeforeMount(async () => {
     1px 1px 0 black;
   color: white;
 }
-.clothingHeader {
-  background-image: url(https://as1.ftcdn.net/v2/jpg/02/42/89/60/500_F_242896079_shm0z5sz1owigpNJKmzNFkuKbt0JKIc2.jpg);
+.booksHeader {
+  background-image: url('https://example.com/path-to-books-header-image.jpg'); 
 }
 
 .items {
