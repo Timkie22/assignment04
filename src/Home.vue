@@ -51,27 +51,32 @@ const kitchenwareItems = ref<StoreItem[]>([]);
 const musicItems = ref<StoreItem[]>([]);
 
 onBeforeMount(async () => {
-  const electronicsCollection = collection(db, "electronics");
-  const electronicsSnapshot = await getDocs(electronicsCollection);
-  artSuppliesItems.value = electronicsSnapshot.docs.map(
-    (doc) => doc.data() as StoreItem
-  );
+  try {
+    const artSuppliesCollection = collection(db, "artsupplies");
+    const artSuppliesSnapshot = await getDocs(artSuppliesCollection);
+    artSuppliesItems.value = artSuppliesSnapshot.docs.map(
+      (doc) => doc.data() as StoreItem
+    );
 
-  const clothingCollection = collection(db, "clothing");
-  const clothingSnapshot = await getDocs(clothingCollection);
-  bookItems.value = clothingSnapshot.docs.map(
-    (doc) => doc.data() as StoreItem
-  );
+    const booksCollection = collection(db, "books");
+    const booksSnapshot = await getDocs(booksCollection);
+    bookItems.value = booksSnapshot.docs.map(
+      (doc) => doc.data() as StoreItem
+    );
 
-  const groceriesCollection = collection(db, "groceries");
-  const groceriesSnapshot = await getDocs(groceriesCollection);
-  kitchenwareItems.value = groceriesSnapshot.docs.map(
-    (doc) => doc.data() as StoreItem
-  );
+    const kitchenwareCollection = collection(db, "kitchenware");
+    const kitchenwareSnapshot = await getDocs(kitchenwareCollection);
+    kitchenwareItems.value = kitchenwareSnapshot.docs.map(
+      (doc) => doc.data() as StoreItem
+    );
 
-  const sportsCollection = collection(db, "sports");
-  const sportsSnapshot = await getDocs(sportsCollection);
-  musicItems.value = sportsSnapshot.docs.map((doc) => doc.data() as StoreItem);
+    const musicCollection = collection(db, "music");
+    const musicSnapshot = await getDocs(musicCollection);
+    musicItems.value = musicSnapshot.docs.map((doc) => doc.data() as StoreItem);
+  } catch (error) {
+    console.error("Fehler beim Laden der Daten: ", error);
+   
+  }
 });
 </script>
 
@@ -85,16 +90,16 @@ onBeforeMount(async () => {
 }
 /* ... other styles ... */
 .artSuppliesHeader {
-  /* Add background-image and other styles specific for the art supplies header */
+  background-image: url( https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzPI5tniFi4xkRHqwSWSZ8oMPyFIxmcc05kwYg5emk10TlF0FF5nb9efvNgLdTvDMqVd4&usqp=CAU)
 }
 .bookHeader {
-  /* Add background-image and other styles specific for the book header */
+  background-image: url(https://szene-hamburg.com/wp-content/uploads/2022/12/Bu%CC%88cher-c-unsplash-gaman-alice-klein.jpg )
 }
 .kitchenwareHeader {
-  /* Add background-image and other styles specific for the kitchenware header */
+  background-image: url(https://top-shelf.de/cdn/shop/files/Moderne-grifflose-Kueche-Riva-top-shelf.de_1600x.jpg?v=1632830066 )
 }
 .musicHeader {
-  /* Add background-image and other styles specific for the music header */
+  background-image: url(https://shop.okluge.de/blog/wp-content/uploads/2020/01/Musik-hoeren_960x540.jpg )
 }
 
 .items {

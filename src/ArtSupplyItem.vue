@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import ArtSupplyItem from "./ArtSupplyItem.vue"; // Stellen Sie sicher, dass Sie eine ArtSupplyItem-Komponente haben
+import ArtSupplyItem from "./ArtSupplyItem.vue"; 
 import "font-awesome/css/font-awesome.min.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./main.ts";
@@ -26,7 +26,7 @@ interface StoreItem {
 const artSuppliesItems = ref<StoreItem[]>([]);
 
 onBeforeMount(async () => {
-  const artSuppliesCollection = collection(db, "art-supplies"); // Aktualisiert auf die Art-Supplies-Kollektion
+  const artSuppliesCollection = collection(db, "art-supplies"); 
   const artSuppliesSnapshot = await getDocs(artSuppliesCollection);
   artSuppliesItems.value = artSuppliesSnapshot.docs.map(
     (doc) => doc.data() as StoreItem
@@ -43,7 +43,7 @@ onBeforeMount(async () => {
   color: white;
 }
 .artSuppliesHeader {
-  background-image: url('https://example.com/path-to-art-supplies-header-image.jpg'); 
+  background-image: url('https://cdn.britannica.com/35/179035-131-9646BA4D/Oil-paints-consistency-paste-variety-colors-brushes.jpg'); 
 }
 
 .items {

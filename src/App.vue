@@ -15,67 +15,87 @@
     <router-view></router-view>
   </main>
   <footer class="footer">
-    &copy; 2023 Artistic Endeavors. All rights reserved.
+    &copy; 2023 Tims Store. All rights reserved.
   </footer>
 </template>
 
 <script lang="ts" setup>
-// ... import statements ...
+import "font-awesome/css/font-awesome.min.css";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db } from "./main.ts";
 
 // List of products in different categories
-const items = ref([
-  // Books
-  {
-    name: "Classic Literature",
-    description: "A collection of classic literature works",
-    price: 50,
-    rating: 4.8,
-    stock: 20,
-    image: "https://example.com/path-to-classic-literature-cover.png",
-    category: "Books",
-  },
-  // ... More book items ...
-  
-  // Music
-  {
-    name: "Acoustic Guitar",
-    description: "Wooden acoustic guitar",
-    price: 120,
-    rating: 4.7,
-    stock: 15,
-    image: "https://example.com/path-to-acoustic-guitar.png",
-    category: "Music",
-  },
-  // ... More music items ...
-  
-  // Art Supplies
-  {
-    name: "Watercolor Paint Set",
-    description: "24 colors watercolor paint set",
-    price: 35,
-    rating: 4.9,
-    stock: 30,
-    image: "https://example.com/path-to-watercolor-paint-set.png",
-    category: "Art Supplies",
-  },
-  // ... More art supplies items ...
-  
-  // Kitchenware
-  {
-    name: "Chef's Knife",
-    description: "Stainless steel chef's knife",
-    price: 25,
-    rating: 4.6,
-    stock: 40,
-    image: "https://example.com/path-to-chefs-knife.png",
-    category: "Kitchenware",
-  },
-  // ... More kitchenware items ...
-]);
 
-// ... rest of the script ...
+async function data_init() {
+  const electronicsCollection = collection(db, "electronics");
+  const querySnapshot = await getDocs(electronicsCollection);
+
+  if (querySnapshot.size === 0) {
+    items.value.forEach(async (item) => {
+      const itemCollection = collection(db, item.category.toLowerCase());
+      await addDoc(itemCollection, item);
+    });
+
+    console.log("Data initialized in Firestore.");
+  } else {
+    console.log("Firestore is not empty. Skipping data initialization.");
+  }
+}
+data_init();
 </script>
 
 <style scoped>
-/* No changes needed in CSS unless you want to style it differently */
+.header {
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* You can adjust the height as needed */
+}
+
+.header a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header img {
+  max-width: 100%; /* Ensure the logo doesn't exceed its container */
+  max-height: 175px; /* Maintain aspect ratio */
+}
+
+.nav {
+  background-color: #444;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  min-width: 100px;
+  padding: 10px 20px;
+  margin: 5px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-item:hover {
+  background-color: #fff;
+  color: #444;
+}
+.main-content {
+  background-color: #242424;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
 </style>

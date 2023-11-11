@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { ref, onBeforeMount } from "vue";
-import BookItem from "./BookItem.vue"; // Make sure you have a BookItem component
+import BookItem from "./BookItem.vue"; 
 import "font-awesome/css/font-awesome.min.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./main.ts";
@@ -43,7 +43,7 @@ onBeforeMount(async () => {
   color: white;
 }
 .booksHeader {
-  background-image: url('https://example.com/path-to-books-header-image.jpg'); 
+  background-image: url('https://cdn.elearningindustry.com/wp-content/uploads/2016/05/top-10-books-every-college-student-read-1024x640.jpeg'); 
 }
 
 .items {

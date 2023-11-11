@@ -43,7 +43,7 @@ onBeforeMount(async () => {
   color: white;
 }
 .musicHeader {
-  background-image: url('https://example.com/path-to-music-header-image.jpg'); 
+  background-image: url('https://images.musicstore.de/images/1280/j-und-d-e-gitarre-st-rock-hss-bk-black_1_GIT0015567-000.jpg'); 
 }
 
 .items {
